@@ -1,9 +1,7 @@
-import { color, getDefaultDay, Color } from './util';
+import { color, Color } from './util';
 import { existsSync, readFileSync } from 'fs';
 
-export async function runDay(year: number, day?: number, data?: string): Promise<void> {
-  day = day ?? getDefaultDay();
-
+export async function runDay(year: number, day: number, part: 1 | 2, data?: string): Promise<void> {
   const solveFn = await import(`${__dirname}/solutions/${year}/day-${day}`).then((m) => m.default);
 
   if (!solveFn) {
@@ -11,22 +9,16 @@ export async function runDay(year: number, day?: number, data?: string): Promise
     return;
   }
 
-  const fileNames = getFileNames(data);
+  const fileNames = getFileNames(part, data);
 
   const inputData = getFileData(year, day, fileNames.input);
   const expectedData = getFileData(year, day, fileNames.output);
 
-  if (day == 1) {
-    console.time();
-  }
-  const output = solveFn(inputData);
-  if (day == 1) {
-    console.timeEnd();
-  }
+  const output = solveFn(part, inputData);
 
   if (expectedData) {
     if (output === expectedData) {
-      console.log(color(Color.FgGreen)(`Output matches expected`));
+      console.log(color(Color.FgGreen)(`Output matches expected:\n${output}`));
     } else {
       console.log(color(Color.FgRed)(`Output does not match expected`));
       console.log(color(Color.FgRed)(`Received:\n${output}`));
@@ -37,17 +29,17 @@ export async function runDay(year: number, day?: number, data?: string): Promise
   }
 }
 
-function getFileNames(data?: string) {
+function getFileNames(part: 1 | 2, data?: string) {
   if (!data) {
     return { input: 'input.txt' };
   }
-  return { input: `${data}-input.txt`, output: `${data}-output.txt` };
+  return { input: `${data}-input.txt`, output: `${data}-output-${part}.txt` };
 }
 
 function getFileData(year: number, day: number, fileName?: string): string {
   const path = `${__dirname}/solutions/${year}/day-${day}/${fileName}`;
   if (fileName && existsSync(path)) {
-    return readFileSync(path, 'utf8');
+    return readFileSync(path, 'utf8').replace(/\n$/m, '');
   }
   return '';
 }
