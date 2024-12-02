@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "NewDay",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "year": {
+      "type": "number",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What year would you like to use?"
+    },
+    "day": {
+      "type": "number",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "What day would you like to use?"
+    }
+  },
+  "required": ["year", "day"]
+}

@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./types"],
-    "paths": {}
+    "paths": {
+      "plugins": ["tools/plugins/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

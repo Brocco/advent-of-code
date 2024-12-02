@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "new-day": {
+      "factory": "./src/generators/generator",
+      "schema": "./src/generators/schema.json",
+      "description": "tools/plugins/src/generators/new-day generator"
+    }
+  }
+}
