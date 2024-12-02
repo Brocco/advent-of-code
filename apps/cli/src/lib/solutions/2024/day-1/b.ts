@@ -1,13 +1,7 @@
+import { get2Columns } from '../../util';
+
 export default function (input: string): string {
-  const { lefts, rights } = input.split('\n').reduce(
-    (acc, line) => {
-      const [left, right] = line.split('   ');
-      acc.lefts.push(parseInt(left));
-      acc.rights.push(parseInt(right));
-      return acc;
-    },
-    { lefts: [], rights: [] } as { lefts: number[]; rights: number[] }
-  );
+  const { lefts, rights } = get2Columns(input.split('\n'), '   ', parseInt);
   const rightCountMap = rights.reduce((acc, right) => {
     acc[right] = (acc[right] || 0) + 1;
     return acc;
