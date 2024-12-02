@@ -4,7 +4,7 @@ import { runDay } from './run-day';
 
 interface Options {
   day: number;
-  part: 1 | 2;
+  part: 'a' | 'b';
   input?: string;
 }
 
@@ -18,7 +18,7 @@ export function cli(): void {
         },
         part: {
           describe: 'The part to process',
-          type: 'number',
+          type: 'string',
         },
         input: {
           describe: 'The name of the input to use',

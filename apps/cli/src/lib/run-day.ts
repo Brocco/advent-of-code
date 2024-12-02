@@ -1,8 +1,15 @@
-import { color, Color } from './util';
+import { color, Color } from './color';
 import { existsSync, readFileSync } from 'fs';
 
-export async function runDay(year: number, day: number, part: 1 | 2, data?: string): Promise<void> {
-  const solveFn = await import(`${__dirname}/solutions/${year}/day-${day}`).then((m) => m.default);
+export async function runDay(
+  year: number,
+  day: number,
+  part: 'a' | 'b',
+  data?: string
+): Promise<void> {
+  const solveFn = await import(`${__dirname}/solutions/${year}/day-${day}/${part}`).then(
+    (m) => m.default
+  );
 
   if (!solveFn) {
     console.log(`No solution found for year: ${year}, day: ${day}`);
@@ -14,7 +21,7 @@ export async function runDay(year: number, day: number, part: 1 | 2, data?: stri
   const inputData = getFileData(year, day, fileNames.input);
   const expectedData = getFileData(year, day, fileNames.output);
 
-  const output = solveFn(part, inputData);
+  const output = solveFn(inputData);
 
   if (expectedData) {
     if (output === expectedData) {
@@ -29,7 +36,7 @@ export async function runDay(year: number, day: number, part: 1 | 2, data?: stri
   }
 }
 
-function getFileNames(part: 1 | 2, data?: string) {
+function getFileNames(part: 'a' | 'b', data?: string) {
   if (!data) {
     return { input: 'input.txt' };
   }
