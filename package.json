@@ -6,6 +6,7 @@
     "preaoc": "npm run build",
     "aoc": "node ./dist/apps/cli/src/main.js",
     "aoc:no-build": "node ./dist/apps/cli/src/main.js",
+    "new-day": "nx generate ./tools/plugins:new-day",
     "build": "nx run-many --target=build --all",
     "test": "nx run-many --target=test --all",
     "x": "nx affected:test --watch",
