@@ -46,7 +46,9 @@ function getFileNames(part: 'a' | 'b', data?: string) {
 function getFileData(year: number, day: number, fileName?: string): string {
   const path = `${__dirname}/solutions/${year}/day-${day}/${fileName}`;
   if (fileName && existsSync(path)) {
-    return readFileSync(path, 'utf8').replace(/\n$/m, '');
+    let contents = readFileSync(path, 'utf8');
+    if (contents.endsWith('\n')) contents = contents.substring(0, contents.length - '\n'.length);
+    return contents;
   }
   return '';
 }
