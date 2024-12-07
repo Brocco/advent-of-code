@@ -21,7 +21,7 @@ export async function runDay(
   const inputData = getFileData(year, day, fileNames.input);
   const expectedData = getFileData(year, day, fileNames.output);
 
-  const output = solveFn(inputData);
+  const output = solveFn(inputData).toString();
 
   if (expectedData) {
     if (output === expectedData) {
